@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt - Semih's Dealer</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #d1a3ff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #1a1a1a;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        nav {
+            background-color: #1a1a1a;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: #d1a3ff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            text-align: center;
+            padding: 20px;
+        }
+        form {
+            background-color: #1a1a1a;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #d1a3ff;
+            color: #121212;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        iframe {
+            width: 100%;
+            height: 450px;
+            border: 0;
+            margin-top: 20px;
+        }
+        footer {
+            background-color: #1a1a1a;
+            color: #d1a3ff;
+            text-align: center;
+            padding: 10px;
+            margin-top: 40px;
+        }
+    </style>
+    <script>
+        function sendToDiscord(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
+            
+            const webhookURL = "https://discord.com/api/webhooks/1350910682815791114/BIMv2BK2N-rv5M3F3FR_15hbSQelBVZU-khzJsrSkZCzXTcmzoZtae_EZgy_KWYdELhA";
+            const payload = {
+                content: `**Neue Nachricht von:**\n👤 Name: ${name}\n📧 E-Mail: ${email}\n💬 Nachricht: ${message}`
+            };
+            
+            fetch(webhookURL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            }).then(response => {
+                if (response.ok) {
+                    alert("Nachricht erfolgreich gesendet!");
+                    document.getElementById("contactForm").reset();
+                } else {
+                    alert("Fehler beim Senden der Nachricht.");
+                }
+            }).catch(error => {
+                alert("Fehler: " + error);
+            });
+        }
+    </script>
+</head>
+<body>
+    <header>Kontakt</header>
+    <nav>
+        <a href="index.html">Über Uns</a>
+        <a href="produkte.html">Produkte</a>
+        <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <div class="container">
+        <h2>Schreib uns eine Nachricht</h2>
+        <form id="contactForm" onsubmit="sendToDiscord(event)">
+            <input type="text" id="name" placeholder="Name" required>
+            <input type="email" id="email" placeholder="E-Mail" required>
+            <textarea id="message" placeholder="Deine Nachricht" rows="5" required></textarea>
+            <button type="submit">Absenden</button>
+        </form>
+        <h2>Unsere Location</h2>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d388.3505888107986!2d6.7652095!3d51.3730508!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sde!2sde!4v1742146773953!5m2!1sde!2sde" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <footer>
+        &copy; 2025 Semih's Dealer - Alle Rechte vorbehalten.
+    </footer>
+</body>
+</html>
