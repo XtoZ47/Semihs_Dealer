@@ -47,6 +47,15 @@
             max-width: 300px;
             border-radius: 10px;
         }
+        .buy-button {
+            background-color: #6a0dad;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
         footer {
             background-color: #1a1a1a;
             color: #d1a3ff;
@@ -55,6 +64,25 @@
             margin-top: 40px;
         }
     </style>
+    <script>
+        function orderProduct(productName, price) {
+            const webhookURL = "https://discord.com/api/webhooks/1350910682815791114/BIMv2BK2N-rv5M3F3FR_15hbSQelBVZU-khzJsrSkZCzXTcmzoZtae_EZgy_KWYdELhA";
+            
+            const order = {
+                content: `Neue Bestellung: ${productName} - Preis: ${price}€`
+            };
+            
+            fetch(webhookURL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(order)
+            }).then(response => {
+                alert("Bestellung erfolgreich gesendet!");
+            }).catch(error => {
+                alert("Fehler beim Senden der Bestellung.");
+            });
+        }
+    </script>
 </head>
 <body>
     <header>Unsere Produkte</header>
@@ -69,30 +97,35 @@
             <img src="https://flower-power.io/cdn/shop/files/amnesia-haze-13-percent-cannabinoide-5percent-d9thcp-flower-power-2.jpg?v=1738344340&width=1800" alt="Amnesia Haze">
             <p>Ein klassischer Sativa-Strain mit intensivem Aroma.</p>
             <p><strong>Preis: 14€/g</strong></p>
+            <button class="buy-button" onclick="orderProduct('Amnesia Haze', 14)">Kaufen</button>
         </div>
         <div class="product">
             <h2>Melon Kush</h2>
             <img src="https://flower-power.io/cdn/shop/files/melon-kush-hhc-25percent-flower-power_6c30da91-418e-4a17-bd54-b87432841bf9.jpg?v=1738344099&width=1800" alt="Melon Kush">
             <p>Süßliches Aroma mit entspannender Wirkung.</p>
             <p><strong>Preis: 12€/g</strong></p>
+            <button class="buy-button" onclick="orderProduct('Melon Kush', 12)">Kaufen</button>
         </div>
         <div class="product">
             <h2>Tangie</h2>
             <img src="https://flower-power.io/cdn/shop/files/tangie-32percent-hhc-flower-power-1.jpg?v=1738343908&width=1800" alt="Tangie">
             <p>Zitrusfrischer Geschmack mit energetisierender Wirkung.</p>
             <p><strong>Preis: 13€/g</strong></p>
+            <button class="buy-button" onclick="orderProduct('Tangie', 13)">Kaufen</button>
         </div>
         <div class="product">
             <h2>Lemon King</h2>
             <img src="https://flower-power.io/cdn/shop/files/LemonKing_2.jpg?v=1738344344&width=1800" alt="Lemon King">
             <p>Intensives Zitronenaroma mit starkem High.</p>
             <p><strong>Preis: 15€/g</strong></p>
+            <button class="buy-button" onclick="orderProduct('Lemon King', 15)">Kaufen</button>
         </div>
         <div class="product">
             <h2>Moon Rocks</h2>
             <img src="https://flower-power.io/cdn/shop/files/FlowerPower-Blueten-MoonRocks-02_07f657d2-6bd6-477d-847e-db3078c8e74c.jpg?v=1738574486&width=1800" alt="Moon Rocks">
             <p>Extrem potente Blüten für erfahrene Nutzer.</p>
             <p><strong>Preis: 18€/g</strong></p>
+            <button class="buy-button" onclick="orderProduct('Moon Rocks', 18)">Kaufen</button>
         </div>
     </div>
     <footer>
