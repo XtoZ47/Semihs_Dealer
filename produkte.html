@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produkte - Semih's Dealer</title>
+    
+    <!-- Favicon hinzufügen -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Pfad zu deinem Favicon -->
+
     <style>
         body {
             background-color: #121212;
@@ -63,7 +67,43 @@
             padding: 10px;
             margin-top: 40px;
         }
+
+        /* Media Queries für responsives Design */
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+            nav a {
+                font-size: 16px;
+            }
+            header {
+                font-size: 20px;
+            }
+            .product {
+                width: 45%;
+                display: inline-block;
+                margin: 10px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .container {
+                width: 100%;
+                padding: 10px;
+            }
+            nav a {
+                font-size: 14px;
+            }
+            header {
+                font-size: 18px;
+            }
+            .product {
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
     </style>
+    
     <script>
         function getDeviceType() {
             return /Mobi|Android/i.test(navigator.userAgent) ? 'Mobile' : 'PC';
